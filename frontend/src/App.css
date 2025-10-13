@@ -1,0 +1,36 @@
+.application-form {
+    padding: 25px;
+    border: 2px solid #333;
+    border-radius: 8px;
+    background-color: #ccc;
+}
+
+.add-on-form {
+    padding: 25px;
+    border: 2px solid #333;
+    border-radius: 8px;
+    background-color: #ccc;
+}
+
+input[type="checkbox"] {
+    margin-right: 10px;
+    width: 35px;
+    height: 35px;
+    vertical-align: middle;
+}
+
+td.green-cell {
+    background-color: #75d58c;
+    color: rgb(21, 120, 28);
+    text-align: center;
+    font-weight: bold;
+    padding: 10px;
+}
+
+td.red-cell {
+    background-color: #ca6670;
+    color: rgb(132, 21, 21);
+    text-align: center;
+    font-weight: bold;
+    padding: 10px;
+}

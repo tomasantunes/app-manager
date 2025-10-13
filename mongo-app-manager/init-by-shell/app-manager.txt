@@ -1,0 +1,3 @@
+use app-manager
+db.createCollection("Applications")
+db.createCollection("PHCGOAddOns")

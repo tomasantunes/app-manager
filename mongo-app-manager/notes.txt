@@ -1,0 +1,45 @@
+# How to run image
+
+docker build -t mongo-instance .
+docker run -d -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=user \
+ -e MONGO_INITDB_ROOT_PASSWORD=pass mongo-instance
+
+# How to enter Mongo Shell
+
+docker exec -it [container_id] mongosh -u user -p pass
+
+# How to make queries on Mongo Shell
+
+use my-database
+db.getCollectionNames()
+db.myCollection.find().pretty()
+
+# How to delete all records from a table on Mongo Shell
+
+db.collectionName.deleteMany({})
+
+# How to delete collection on Mongo Shell
+
+db.collectionName.drop()
+
+# How to start container when it is in "exited" status
+
+docker start [container_id]
+
+# How to set container to automatically restart when the server restarts
+
+docker update --restart unless-stopped [container_id]
+
+# How to create database on Mongo Shell
+
+use newdatabase
+db.createCollection("collection1")
+
+# How to show existing databases
+
+show dbs
+
+# How to backup MongoDB
+
+cd /BACKUPS
+docker exec [container_id] mongodump --archive --username user --password pass --authenticationDatabase admin > mongodb_backup.archive

@@ -6,6 +6,7 @@ import axios from 'axios';
 export default function Applications() {
   const [applications, setApplications] = useState([]);
   const [newAppName, setNewAppName] = useState('');
+  const [newAppDescription, setNewAppDescription] = useState('');
   const [newAppURL, setNewAppURL] = useState('');
   const [newAppServer, setNewAppServer] = useState('');
   const [newAppPort, setNewAppPort] = useState('');
@@ -23,6 +24,7 @@ export default function Applications() {
   const [newAppNotes, setNewAppNotes] = useState('');
   const [editAppId, setEditAppId] = useState(null);
   const [editAppName, setEditAppName] = useState('');
+  const [editAppDescription, setEditAppDescription] = useState('');
   const [editAppURL, setEditAppURL] = useState('');
   const [editAppServer, setEditAppServer] = useState('');
   const [editAppPort, setEditAppPort] = useState('');
@@ -52,6 +54,7 @@ export default function Applications() {
   function addApplication() {
     const newApp = {
       name: newAppName,
+      description: newAppDescription,
       url: newAppURL,
       server: newAppServer,
       port: newAppPort,
@@ -73,6 +76,7 @@ export default function Applications() {
     .then(response => {
       alert("Application added successfully.");
       setNewAppName('');
+      setNewAppDescription('');
       setNewAppURL('');
       setNewAppServer('');
       setNewAppPort('');
@@ -100,6 +104,7 @@ export default function Applications() {
     if(appToEdit) {
       setEditAppId(appToEdit._id);
       setEditAppName(appToEdit.name);
+      setEditAppDescription(appToEdit.description);
       setEditAppURL(appToEdit.url);
       setEditAppServer(appToEdit.server);
       setEditAppPort(appToEdit.port);
@@ -142,6 +147,7 @@ export default function Applications() {
   function saveApp() {
     const updatedData = {
       name: editAppName,
+      description: editAppDescription,
       url: editAppURL,
       server: editAppServer,
       port: editAppPort,
@@ -188,6 +194,10 @@ export default function Applications() {
               <div className="form-group mb-2">
                 <label className="form-label">Nome</label>
                 <input type="text" className="form-control" value={newAppName} onChange={e => setNewAppName(e.target.value)} />
+              </div>
+              <div className="form-group mb-2">
+                <label className="form-label">Descrição</label>
+                <textarea className="form-control" rows="3" value={newAppDescription} onChange={e => setNewAppDescription(e.target.value)}></textarea>
               </div>
               <div className="form-group mb-2">
                 <label className="form-label">URL</label>
@@ -257,7 +267,7 @@ export default function Applications() {
         </div>
       </div>
 
-      <div className="modal fade editAppModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div className="modal fade editAppModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
@@ -268,6 +278,10 @@ export default function Applications() {
               <div className="form-group mb-2">
                 <label className="form-label">Nome</label>
                 <input type="text" className="form-control" value={editAppName} onChange={e => setEditAppName(e.target.value)} />
+              </div>
+              <div className="form-group mb-2">
+                <label className="form-label">Descrição</label>
+                <textarea className="form-control" rows="3" value={editAppDescription} onChange={e => setEditAppDescription(e.target.value)}></textarea>
               </div>
               <div className="form-group mb-2">
                 <label className="form-label">URL</label>

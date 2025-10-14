@@ -9,6 +9,7 @@ var secretConfig = require("./secret-config");
 var indexRouter = require('./routes/index');
 var viewsRouter = require('./routes/views');
 var applicationsRouter = require('./routes/applications');
+var statsRouter = require('./routes/stats');
 
 var app = express();
 
@@ -32,6 +33,7 @@ app.use('/', indexRouter);
 app.use(express.static(path.resolve(__dirname) + '/frontend/dist'));
 app.use('/', viewsRouter);
 app.use('/', applicationsRouter);
+app.use('/', statsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

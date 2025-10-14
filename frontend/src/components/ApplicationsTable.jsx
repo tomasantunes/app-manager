@@ -19,7 +19,6 @@ const ApplicationsTable = ({ applications, openEditApp, deleteApp }) => {
         <thead className="table-dark">
           <tr>
             <th>Nome</th>
-            <th>URL</th>
             <th>Back-End Atualizado</th>
             <th>Front-End Atualizado</th>
             <th>Refatorizada</th>
@@ -35,7 +34,6 @@ const ApplicationsTable = ({ applications, openEditApp, deleteApp }) => {
           {currentApps.map((app) => (
             <tr key={app._id}>
               <td>{app.name}</td>
-              <td>{app.url}</td>
               <td className={app.backend_updated ? "green-cell" : "red-cell"}>
                 <b>{app.backend_updated ? "Sim" : "Não"}</b>
               </td>
@@ -61,18 +59,20 @@ const ApplicationsTable = ({ applications, openEditApp, deleteApp }) => {
                 <b>{app.has_docs ? "Sim" : "Não"}</b>
               </td>
               <td>
-                <button
-                  className="btn btn-sm btn-primary me-2"
-                  onClick={() => openEditApp(app._id)}
-                >
-                  <i className="fa-solid fa-pencil"></i>
-                </button>
-                <button
-                  className="btn btn-sm btn-danger"
-                  onClick={() => deleteApp(app._id)}
-                >
-                  <i className="fa-solid fa-trash"></i>
-                </button>
+                <div className="btn-group">
+                  <button
+                    className="btn btn-sm btn-primary me-2"
+                    onClick={() => openEditApp(app._id)}
+                  >
+                    <i className="fa-solid fa-pencil"></i>
+                  </button>
+                  <button
+                    className="btn btn-sm btn-danger"
+                    onClick={() => deleteApp(app._id)}
+                  >
+                    <i className="fa-solid fa-trash"></i>
+                  </button>
+                </div>
               </td>
             </tr>
           ))}

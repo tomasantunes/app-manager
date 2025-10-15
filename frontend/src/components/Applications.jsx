@@ -40,6 +40,8 @@ export default function Applications() {
   const [editAppHasBackup, setEditAppHasBackup] = useState(false);
   const [editAppHasDocs, setEditAppHasDocs] = useState(false);
   const [editAppNotes, setEditAppNotes] = useState('');
+  const [editAppCreatedAt, setEditAppCreatedAt] = useState(null);
+  const [editAppUpdatedAt, setEditAppUpdatedAt] = useState(null);
 
   function loadApplications() {
     axios.get('/get-applications')
@@ -69,7 +71,9 @@ export default function Applications() {
       has_repo: newAppHasRepo,
       has_backup: newAppHasBackup,
       has_docs: newAppHasDocs,
-      notes: newAppNotes
+      notes: newAppNotes,
+      created_at: new Date(),
+      updated_at: new Date(),
     };
 
     axios.post('/add-application', newApp)
@@ -120,6 +124,8 @@ export default function Applications() {
       setEditAppHasBackup(appToEdit.has_backup);
       setEditAppHasDocs(appToEdit.has_docs);
       setEditAppNotes(appToEdit.notes);
+      setEditAppCreatedAt(appToEdit.created_at);
+      setEditAppUpdatedAt(appToEdit.updated_at);
       var myModal = new window.bootstrap.Modal(document.querySelector('.editAppModal'));
       myModal.show();
     }
@@ -162,7 +168,9 @@ export default function Applications() {
       has_repo: editAppHasRepo,
       has_backup: editAppHasBackup,
       has_docs: editAppHasDocs,
-      notes: editAppNotes
+      notes: editAppNotes,
+      created_at: editAppCreatedAt,
+      updated_at: new Date(),
     };
 
     axios.post("/update-application", { id: editAppId, updatedData: updatedData })

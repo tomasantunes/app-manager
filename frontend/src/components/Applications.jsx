@@ -210,11 +210,13 @@ export default function Applications() {
     let filtered = [...applications];
     if (selectedFilters.length > 0) {
       filtered = filtered.filter(app => {
-        if(selectedFilters.includes(booleanFilters[0]) && app.active) return true;
-        if(selectedFilters.includes(booleanFilters[1]) && !app.active) return true;
-        if(selectedFilters.includes(booleanFilters[2]) && app.frozen) return true;
-        if(selectedFilters.includes(booleanFilters[3]) && !app.frozen) return true;
-        return false;
+        return selectedFilters.every(filter => {
+          if(filter.value === 'active' && app.active) return true;
+          if(filter.value === 'not_active' && !app.active) return true;
+          if(filter.value === 'frozen' && app.frozen) return true;
+          if(filter.value === 'not_frozen' && !app.frozen) return true;
+          return false;
+        });
       });
     }
     setFilteredApplications(filtered);

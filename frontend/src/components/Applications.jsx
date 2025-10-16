@@ -21,6 +21,8 @@ export default function Applications() {
   const [newAppHasRepo, setNewAppHasRepo] = useState(false);
   const [newAppHasBackup, setNewAppHasBackup] = useState(false);
   const [newAppHasDocs, setNewAppHasDocs] = useState(false);
+  const [newAppActive, setNewAppActive] = useState(true);
+  const [newAppFrozen, setNewAppFrozen] = useState(false);
   const [newAppNotes, setNewAppNotes] = useState('');
   const [editAppId, setEditAppId] = useState(null);
   const [editAppName, setEditAppName] = useState('');
@@ -39,6 +41,8 @@ export default function Applications() {
   const [editAppHasRepo, setEditAppHasRepo] = useState(false);
   const [editAppHasBackup, setEditAppHasBackup] = useState(false);
   const [editAppHasDocs, setEditAppHasDocs] = useState(false);
+  const [editAppActive, setEditAppActive] = useState(true);
+  const [editAppFrozen, setEditAppFrozen] = useState(false);
   const [editAppNotes, setEditAppNotes] = useState('');
   const [editAppCreatedAt, setEditAppCreatedAt] = useState(null);
   const [editAppUpdatedAt, setEditAppUpdatedAt] = useState(null);
@@ -71,6 +75,8 @@ export default function Applications() {
       has_repo: newAppHasRepo,
       has_backup: newAppHasBackup,
       has_docs: newAppHasDocs,
+      active: newAppActive,
+      frozen: newAppFrozen,
       notes: newAppNotes,
       created_at: new Date(),
       updated_at: new Date(),
@@ -95,6 +101,8 @@ export default function Applications() {
       setNewAppHasRepo(false);
       setNewAppHasBackup(false);
       setNewAppHasDocs(false);
+      setNewAppActive(true);
+      setNewAppFrozen(false);
       setNewAppNotes('');
       loadApplications();
     })
@@ -123,6 +131,8 @@ export default function Applications() {
       setEditAppHasRepo(appToEdit.has_repo);
       setEditAppHasBackup(appToEdit.has_backup);
       setEditAppHasDocs(appToEdit.has_docs);
+      setEditAppActive(appToEdit.active);
+      setEditAppFrozen(appToEdit.frozen);
       setEditAppNotes(appToEdit.notes);
       setEditAppCreatedAt(appToEdit.created_at);
       setEditAppUpdatedAt(appToEdit.updated_at);
@@ -168,6 +178,8 @@ export default function Applications() {
       has_repo: editAppHasRepo,
       has_backup: editAppHasBackup,
       has_docs: editAppHasDocs,
+      active: editAppActive,
+      frozen: editAppFrozen,
       notes: editAppNotes,
       created_at: editAppCreatedAt,
       updated_at: new Date(),
@@ -264,6 +276,14 @@ export default function Applications() {
                 <label className="form-label">Tem Documentação</label>
               </div>
               <div className="form-group mb-2">
+                <input type="checkbox" checked={newAppActive} onChange={e => setNewAppActive(e.target.checked)} />
+                <label className="form-label">Ativa</label>
+              </div>
+              <div className="form-group mb-2">
+                <input type="checkbox" checked={newAppFrozen} onChange={e => setNewAppFrozen(e.target.checked)} />
+                <label className="form-label">Congelada</label>
+              </div>
+              <div className="form-group mb-2">
                 <label className="form-label">Observações</label>
                 <textarea className="form-control" rows="3" value={newAppNotes} onChange={e => setNewAppNotes(e.target.value)}></textarea>
               </div>
@@ -346,6 +366,14 @@ export default function Applications() {
               <div className="form-group mb-2">
                 <input type="checkbox" checked={editAppHasDocs} onChange={e => setEditAppHasDocs(e.target.checked)} />
                 <label className="form-label">Tem Documentação</label>
+              </div>
+              <div className="form-group mb-2">
+                <input type="checkbox" checked={editAppActive} onChange={e => setEditAppActive(e.target.checked)} />
+                <label className="form-label">Ativa</label>
+              </div>
+              <div className="form-group mb-2">
+                <input type="checkbox" checked={editAppFrozen} onChange={e => setEditAppFrozen(e.target.checked)} />
+                <label className="form-label">Congelada</label>
               </div>
               <div className="form-group mb-2">
                 <label className="form-label">Observações</label>

@@ -43,3 +43,7 @@ show dbs
 
 cd /BACKUPS
 docker exec [container_id] mongodump --archive --username user --password pass --authenticationDatabase admin > mongodb_backup.archive
+
+# How to update all documents in a collection and add an extra field with Mongo Shell
+
+db.collectionName.updateMany( {}, { $set: { newFieldName: "" } } )

@@ -2,9 +2,19 @@ import React, {useState, useEffect} from 'react';
 import Navbar from './Navbar';
 import ApplicationsTable from "./ApplicationsTable";
 import axios from 'axios';
+import Select from 'react-select';
+
+const booleanFilters = [
+  { value: 'active', label: 'Ativa' },
+  { value: 'not_active', label: 'Inativa' },
+  { value: 'frozen', label: 'Congelada' },
+  { value: 'not_frozen', label: 'Não Congelada' }
+];
 
 export default function Applications() {
   const [applications, setApplications] = useState([]);
+  const [filteredApplications, setFilteredApplications] = useState([]);
+  const [selectedFilters, setSelectedFilters] = useState([]);
   const [newAppName, setNewAppName] = useState('');
   const [newAppDescription, setNewAppDescription] = useState('');
   const [newAppURL, setNewAppURL] = useState('');
@@ -197,6 +207,20 @@ export default function Applications() {
   }
 
   useEffect(() => {
+    let filtered = [...applications];
+    if (selectedFilters.length > 0) {
+      filtered = filtered.filter(app => {
+        if(selectedFilters.includes(booleanFilters[0]) && app.active) return true;
+        if(selectedFilters.includes(booleanFilters[1]) && !app.active) return true;
+        if(selectedFilters.includes(booleanFilters[2]) && app.frozen) return true;
+        if(selectedFilters.includes(booleanFilters[3]) && !app.frozen) return true;
+        return false;
+      });
+    }
+    setFilteredApplications(filtered);
+  }, [selectedFilters]);
+
+  useEffect(() => {
     loadApplications();
   }, []);
   return (
@@ -205,7 +229,20 @@ export default function Applications() {
       <div className="container">
         <div className="row  mb-4">
           <h2 className="my-4">Aplicações</h2>
-          <ApplicationsTable applications={applications} openEditApp={openEditApp} deleteApp={deleteApp} />
+          <div className="row mb-3">
+            <div className="col-md-3"></div>
+            <div className="col-md-3"></div>
+            <div className="col-md-3"></div>
+            <div className="col-md-3">
+              <div><b>Filtrar:</b></div>
+              <Select options={booleanFilters} value={selectedFilters} onChange={setSelectedFilters} isMulti />
+            </div>
+          </div>
+          {selectedFilters.length == 0 ? 
+            <ApplicationsTable applications={applications} openEditApp={openEditApp} deleteApp={deleteApp} />
+            :
+            <ApplicationsTable applications={filteredApplications} openEditApp={openEditApp} deleteApp={deleteApp} />
+          }
         </div>
         <div className="row">
           <div className="col-md-4">
